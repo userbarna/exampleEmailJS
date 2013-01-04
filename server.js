@@ -1,3 +1,4 @@
+//Setup basic email credentials
 var email = require('emailjs'),
     server = email.server.connect({
       user:	"<USERNAME>@gmail.com",
@@ -6,7 +7,7 @@ var email = require('emailjs'),
       ssl:	true
     });
     
-//enviamos el mensaje y recibimos la callback con un error o los detalles del envio
+//Send message. Callback tells us whether there's been an error or not
 server.send({
   text: "<TEXTO TO BE SENT - BODY",
   from: "<USERNAME>@gmail.com",
@@ -14,4 +15,14 @@ server.send({
   cc:	"<EMAIL OF CC> (separated by commas)",
   subject: "<SUBJECT>"
 }, function(err,message){ console.log(err || message);}); 
- 
+
+/* If you want to send an email everytime an error happens replace node global console.error() function:
+console.error = function(msg) {
+  // send email
+  // ...
+    
+  // additionaly log
+  process.stderr.write(msg);
+};
+SOURCE: http://stackoverflow.com/questions/7204474/how-do-i-send-an-email-for-every-error-that-occurs-in-node-js
+ */ 
